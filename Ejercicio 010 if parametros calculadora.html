@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+
+        <script>
+            function calcular (operación){
+                if (operación=="suma"){
+                    let cifraUno=parseInt(prompt ("Dime una cifra."));
+                    let cifraDos=parseInt(prompt ("Dime otra cifra."));
+                        document.getElementById("resultado").innerHTML=cifraUno + "+" + cifraDos + "=" + (cifraUno+cifraDos);}
+                if (operación=="resta"){
+                    let cifraUno=parseInt(prompt ("Dime una cifra."));
+                    let cifraDos=parseInt(prompt ("Dime otra cifra."));
+                        document.getElementById("resultado").innerHTML=cifraUno + "-" + cifraDos + "=" + (cifraUno-cifraDos);}
+                if (operación=="multiplicacion"){
+                    let cifraUno=parseInt(prompt ("Dime una cifra."));
+                    let cifraDos=parseInt(prompt ("Dime otra cifra."));
+                        document.getElementById("resultado").innerHTML=cifraUno + "*" + cifraDos + "=" + (cifraUno*cifraDos);}
+                if (operación=="division"){
+                    let cifraUno=parseInt(prompt ("Dime una cifra."));
+                    let cifraDos=parseInt(prompt ("Dime otra cifra."));
+                        document.getElementById("resultado").innerHTML=cifraUno + "/" + cifraDos + "=" + (cifraUno/cifraDos);}
+            }
+
+        </script>
+    </head>
+
+    <body>
+        <h1>Elige la operación:</h1>
+        <button type="button" onclick='calcular ("suma")'>Sumar</button>
+        <button type="button" onclick='calcular ("resta")'>Restar</button>
+        <button type="button" onclick='calcular ("multiplicacion")'>Multiplicar</button>
+        <button type="button" onclick='calcular ("division")'>Dividir</button>
+        <h3 id="resultado"></h3>
+
+    </body>
+
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+</head>
+<body>
+    <h1 id="titulo"> Título </h1>
+    <button type="button" id="boton" onclick="cambiarFondoRojo()" ondblclick="cambiarFondoAzul()" onmouseover="cambiarFondoBoton ()" onmouseout="volverBotonDefault()"> Cambiar fondo del título </button>
+
+<script>
+    function cambiarFondoRojo(){
+        document.getElementById("titulo").style.backgroundColor="red";
+    }
+    function cambiarFondoAzul(){
+        document.getElementById("titulo").style.backgroundColor="blue";
+    }
+    function cambiarFondoBoton(){
+        document.getElementById("boton").style.backgroundColor="yellow";
+    }
+    function volverBotonDefault(){
+        document.getElementById("boton").style.backgroundColor="";
+    }
+</script>
+
+</body>
+</html>

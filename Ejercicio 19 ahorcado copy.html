@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+
+        body{
+            text-align: center;
+            font-family: 'Segoe UI';
+            font-weight: bold;
+            background-color: #c0de9e;
+            color: #689550;
+        }
+        button{
+            background-color: #689550;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            
+        }
+        button:disabled{
+            background-color: #61884b;
+            color:#689550;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+    <select id="idiomas" onchange="cambiarIdioma()">
+        <option value="castellano">ESP</option>
+        <option value="catala">CAT</option>
+        <option value="english">ENG</option>
+
+    </select>
+
+    <h1 id="tituloPagina">¿Jugamos al ahorcado?</h1>
+
+    <button type="button" id="botonIniciarJuego" onclick="iniciarJuego()">¡Comenzar juego!</button>
+
+    <h1 id="palabraAhorcado"></h1>
+
+    <div id="imagenesAhorcado"></div>
+    <div id="cuerpoBotones"></div>
+    
+
+    
+
+    <script>
+        let arrPalabras = ["KAREN", "ARMANDO", "CARLOS", "ADRIAN", "KEVIN", "SANTIAGO", "DANIEL", "JUANCARLOS", "ALEJANDRO", "NARA", "ANA", "SERGIO"];
+        let arrAbecedario = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        let palabraJuego;
+        let numLetras;
+        let letraBoton;
+        let contAciertos;
+        let contFallos;
+        let idiomaSeleccionado="castellano";
+        let mensajeGanador;
+        let mensajePerdedor;
+
+        function cambiarIdioma (){
+            idiomaSeleccionado = document.getElementById("idiomas").value;
+            switch (idiomaSeleccionado){
+
+                case "castellano":
+                    document.getElementById("tituloPagina").innerHTML="¿Jugamos al ahorcado?";
+                    document.getElementById("botonIniciarJuego").innerHTML="¡Comenzar juego!";
+                    arrAbecedario = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"]; 
+                    mensajeGanador="¡HAS GANADO!";
+                    mensajePerdedor="HAS PERDIDO...";
+                break;
+
+                case "catala":
+                    document.getElementById("tituloPagina").innerHTML="Juguem al penjat?";
+                    document.getElementById("botonIniciarJuego").innerHTML="Començar joc!";
+                    arrAbecedario = ["A","B","C","Ç","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+                    mensajeGanador="HAS GUANYAT!";
+                    mensajePerdedor="HAS PERDUT...";
+                break;
+
+                case "english": 
+                    document.getElementById("tituloPagina").innerHTML="Wanna play the hangman?";
+                    document.getElementById("botonIniciarJuego").innerHTML="Start game!";
+                    arrAbecedario = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+                    mensajeGanador="YOU HAVE WON!";
+                    mensajePerdedor="YOU HAVE LOST...";
+                break;
+            }
+                document.getElementById("palabraAhorcado").innerHTML="";
+                document.getElementById("cuerpoBotones").innerHTML="";
+        }
+
+        function iniciarJuego(){
+            document.getElementById("palabraAhorcado").innerHTML="";
+            document.getElementById("cuerpoBotones").innerHTML="";
+            document.getElementById("imagenesAhorcado").innerHTML="";
+            contFallos=0;
+            contAciertos=0;
+            // esto hay que ponerlo para que cada vez que cliques a IniciarJuego se incialice todo de nuevo. 
+            obtenerPalabra ();
+            ocultarPalabra ();
+            crearBotonesLetras ();
+        }
+
+        function obtenerPalabra (){
+            numPalabras = arrPalabras.length;
+            let numAleatorio = Math.floor(Math.random() *numPalabras);
+            palabraJuego = arrPalabras[numAleatorio];
+        }
+
+        function ocultarPalabra () {
+            numLetras = palabraJuego.length;
+            for (i=0; i<numLetras; i++){
+                document.getElementById("palabraAhorcado").innerHTML+= '<span id="letra'+i+'">_ </span>';
+            }
+        }
+
+        function crearBotonesLetras (){
+            let numAbecedario = arrAbecedario.length;
+            for (i = 0; i <numAbecedario; i++) { 
+                document.getElementById("cuerpoBotones").innerHTML+='<button id="'+arrAbecedario[i]+'" type="button" onclick=compararLetra(\"'+ arrAbecedario[i] + '\")>' + arrAbecedario[i] + '</button>';
+        }
+    }
+        
+        function compararLetra (letraEscogida){
+            // el valor del letraEscogida se la hemos dado al concatenar la funcion en el boton anterior, y la recogemos en esta nueva variable. Esta vez le damos el valor antes que el propio nombre de la variable. 
+            document.getElementById(letraEscogida).disabled=true;
+            // con esto se desabilita un boton al ser clicado.
+            
+            let letraExiste=false;
+
+            for (i=0; i<numLetras; i++){
+            if (palabraJuego.charAt(i)==letraEscogida){
+                document.getElementById("letra"+i).innerHTML=letraEscogida; 
+                letraExiste=true;
+                contAciertos=contAciertos+1;
+                
+            } 
+        
+            }
+            if (letraExiste==false){
+            mostrarAhorcado();
+            }
+            if (contAciertos==numLetras){
+                    alert(mensajeGanador); 
+                iniciarJuego();
+            }
+        }
+
+        function mostrarAhorcado() {
+            idiomaSeleccionado;
+            contFallos=contFallos+1;
+            document.getElementById("imagenesAhorcado").innerHTML= '<img src="imagenes/ahorcado'+contFallos+'.jpg">'
+            if (contFallos==6){
+                    alert(mensajePerdedor); 
+                iniciarJuego();
+            }
+        }
+
+
+    </script>
+</body>
+</html>

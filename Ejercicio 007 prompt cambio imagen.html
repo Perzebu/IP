@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+
+    <script>
+        function indentificar () {
+            let nombre= prompt ("¿Quién eres?"); 
+            if (nombre=="Jesus" || nombre=="Satan"){
+                document.getElementById("imagenUsuario").src="/imagenes/"+nombre+".jpg";
+            }
+            else {
+                document.getElementById("imagenUsuario").src="/imagenes/Heaven.jpg";
+            }
+        }
+
+    </script>
+    </head>
+
+<body id=body>
+    <h1> <img id="imagenUsuario" src="/imagenes/Heaven.jpg" alt="Heaven"></h1>
+    <button type="button" onclick="indentificar ()">¿Quién eres?</button>
+    
+</body>
+</html>

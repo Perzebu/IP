@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        body{
+            text-align: center;
+            background-color: lightgreen;
+            color: darkgreen;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>¿Jugamos al ahorcado?</h1>
+
+    <button type="button" onclick="iniciarJuego()">Jugar</button>
+
+    <h1 id="palabraAhorcado"></h1>
+
+    <div id="imagenesAhorcado"></div>
+    <div id="cuerpoBotones"></div>
+    
+
+    
+
+    <script>
+        let arrPalabras = ["KAREN", "ARMANDO", "CARLOS", "ADRIAN", "KEVIN", "SANTIAGO", "DANIEL", "JUANCARLOS", "ALEJANDRO", "NARA", "ANA", "SERGIO"];
+        let arrAbecedario = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","Ñ","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+        let palabraJuego;
+        let numLetras;
+        let letraBoton;
+        let contAciertos;
+        let contFallos;
+
+        function iniciarJuego(){
+            document.getElementById("palabraAhorcado").innerHTML="";
+            document.getElementById("cuerpoBotones").innerHTML="";
+            document.getElementById("imagenesAhorcado").innerHTML="";
+            contFallos=0;
+            contAciertos=0;
+            // esto hay que ponerlo para que cada vez que cliques a IniciarJuego se incialice todo de nuevo. 
+            obtenerPalabra ();
+            ocultarPalabra ();
+            crearBotonesLetras ();
+        }
+
+        function obtenerPalabra (){
+            numPalabras = arrPalabras.length;
+            let numAleatorio = Math.floor(Math.random() *numPalabras);
+            palabraJuego = arrPalabras[numAleatorio];
+        }
+
+        function ocultarPalabra () {
+            numLetras = palabraJuego.length;
+            for (i=0; i<numLetras; i++){
+                document.getElementById("palabraAhorcado").innerHTML+= '<span id="letra'+i+'">_ </span>';
+            }
+        }
+
+        function crearBotonesLetras (){
+            let numAbecedario = arrAbecedario.length;
+            for (i = 0; i <numAbecedario; i++) { 
+                document.getElementById("cuerpoBotones").innerHTML+='<button id="'+arrAbecedario[i]+'" type="button" onclick=compararLetra(\"'+ arrAbecedario[i] + '\")>' + arrAbecedario[i] + '</button>';
+        }
+    }
+        
+        function compararLetra (letraEscogida){
+            // el valor del letraEscogida se la hemos dado al concatenar la funcion en el boton anterior, y la recogemos en esta nueva variable. Esta vez le damos el valor antes que el propio nombre de la variable. 
+            document.getElementById(letraEscogida).disabled=true;
+            // con esto se desabilita un boton al ser clicado.
+            
+            let letraExiste=false;
+
+            for (i=0; i<numLetras; i++){
+            if (palabraJuego.charAt(i)==letraEscogida){
+                document.getElementById("letra"+i).innerHTML=letraEscogida; 
+                letraExiste=true;
+                contAciertos=contAciertos+1;
+                
+            } 
+        
+            }
+            if (letraExiste==false){
+            mostrarAhorcado();
+            }
+            if (contAciertos==numLetras){
+                alert("HAS GANADO");
+                iniciarJuego();
+            }
+        }
+
+        function mostrarAhorcado() {
+            contFallos=contFallos+1;
+            document.getElementById("imagenesAhorcado").innerHTML= '<img src="imagenes/ahorcado'+contFallos+'.jpg">'
+            if (contFallos==6){
+                alert("HAS PERDIDO");
+                iniciarJuego();
+            }
+        }
+
+
+    </script>
+</body>
+</html>

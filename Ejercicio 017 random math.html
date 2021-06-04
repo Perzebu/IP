@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        button {
+            margin: auto;
+        }
+        p {
+            text-align: center;
+        }
+        table, td, th {
+            text-align: center;
+         border: 1px solid black;
+         }
+
+        table {
+        width: 50%;
+        border-collapse: collapse;
+        margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <button onclick='mostrarRandom()'>Mostrar Imagen Random</button>
+
+    <p id="cuerpoRandom"></p>
+    <h3 id="textoGanador"></h3>
+
+    <table id="cuerpoContadores">
+    </table>
+
+    <script>
+        let arrRandom = [0,0,0,0,0,0,0,0,0,0];
+        function mostrarRandom () {
+            let numeroRandom= Math.floor(Math.random() * 10) + 1;
+            document.getElementById("cuerpoRandom").innerHTML='<img src="./imagenes/'+ numeroRandom +'.jpg" width="236px" height="314px">';
+
+            arrRandom[numeroRandom - 1]+=1;
+            // hay que ponerle un -1 porque aunque los numeros sean del 1 al 10, el i (indice) del array es de 0 a 9. El +=1 es para sumarle 1 cada vez. Luego metes el array en el HTML.
+            mostrarContadores (); 
+            if (arrRandom[numeroRandom-1]>=10){
+                    document.getElementById("textoGanador").innerHTML= "Ha ganado el " + numeroRandom;
+                    reiniciarContador();
+            }
+        }
+        function reiniciarContador(){
+            for (i=1;i<=10;i++){
+            arrRandom [i - 1] = 0;
+            }
+        }
+        function mostrarContadores (){
+            let txtContador = "<table>";
+            for (i=1; i<=arrRandom.length; i++){
+                    txtContador += "<tr>" + "<th>" + i+ "</th>" + "<th>" + arrRandom[i-1] + "</th>";
+
+            }
+            txtContador += "</table>";
+            document.getElementById("cuerpoContadores").innerHTML= txtContador;
+         }
+
+         
+        </script>
+
+</body>
+</html>

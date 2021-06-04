@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+
+    <script>
+        function decirNombreEdad() {
+            let nombre=prompt("Dime tu nombre");
+            let edad=parseInt(prompt("Dime tu edad"));
+            if (edad>=18) {
+                document.getElementById("mayorEdad").innerHTML= "Apto, mayor de edad.";
+                document.getElementById("mayorEdad").style.backgroundColor="yellowgreen";
+            }
+            else {
+                document.getElementById("mayorEdad").innerHTML= "No apto, menor de edad.";
+                document.getElementById("mayorEdad").style.backgroundColor="orangered";
+            }
+            if (nombre == "Alfonso")
+            document.getElementById("tuNombre").innerHTML="Hola, " + nombre + ", tienes " + edad + " años.";
+            else
+            document.getElementById("tuNombre").innerHTML="Perdona, " + nombre + ", no te conozco.";
+        }
+
+
+    </script>
+    </head>
+
+<body id=body>
+    <h1 id="tuNombre">¿Cuál es tu nombre y edad?</h1>
+    <button type="button" onclick="decirNombreEdad()">Click aquí</button>
+    <h2 id=mayorEdad></h2>
+</body>
+</html>

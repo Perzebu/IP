@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <style>
+
+            </style>
+        <meta charset="UTF-8">
+        <script>
+            function sumarCifras (){
+                let cifraUno=parseInt(prompt ("Dime una cifra."));
+                let cifraDos=parseInt(prompt ("Dime otra cifra."));
+                    document.getElementById("resultadoSuma").innerHTML=cifraUno+cifraDos;
+                    document.getElementById("sumaCompleta").innerHTML=cifraUno + "+" + cifraDos + "=" + (cifraUno+cifraDos);
+            }
+            function sumarOtraCifra (){
+                let cifraTres=parseInt(prompt("Dime otra más."));
+                let total=parseInt(document.getElementById("resultadoSuma").innerHTML);
+                document.getElementById("resultadoSuma").innerHTML=total+cifraTres;
+                document.getElementById("sumaCompleta").innerHTML=document.getElementById("sumaCompleta").innerHTML + '<br/>' + total + "+" + cifraTres + "=" + (total+cifraTres);
+            }
+            function restarOtraCifra (){
+                let cifraTres=parseInt(prompt("Dime otra cifra para restar."));
+                let total=parseInt(document.getElementById("resultadoSuma").innerHTML);
+                document.getElementById("resultadoSuma").innerHTML=total-cifraTres;
+                document.getElementById("sumaCompleta").innerHTML=document.getElementById("sumaCompleta").innerHTML + '<br/>' + total + "-" + cifraTres + "=" + (total-cifraTres);
+            }
+    
+        </script>
+
+    </head>
+    <body>
+        <button type="button" onclick="sumarCifras ()">Suma dos cifras</button>
+        <h3 id="resultadoSuma"></h3>
+        <h3 id="sumaCompleta"></h3>
+        <button type="button" onclick="sumarOtraCifra()">Suma otra cifra más</button>
+        <button type="button" onclick="restarOtraCifra()">Resta otra cifra más</button>
+
+    </body>
+    
+</html>

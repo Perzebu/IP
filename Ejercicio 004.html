@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title> Página Dark & White Style</title>
+        <meta charset="UTF-8">
+    </head>
+
+    <body id="body">
+        <h1> Selecciona el Theme</h1>
+        <h2> Veces que has seleccionado el Dark Theme:</h2>
+        <p id="contadorDark">0</p>
+        <h2> Veces que has seleccionado el White Theme:</h2>
+        <p id="contadorWhite">0</p>
+        <h2> Veces que has seleccionado el Lima Theme:</h2>
+        <p id="contadorLima">0</p>
+        <h2> Total de cambios de tema:</h2>
+        <p id="totalCambiosTema">0</p>
+        <button type="button" onclick="ejecutarDarkTheme ()">Dark Theme</button>
+        <button type="button" onclick="ejecutarWhiteTheme ()">White Theme</button>
+        <button type="button" onclick="ejecutarLimaTheme ()">Lima Theme</button>
+
+        <script>
+            let contadorTotal = 0;
+            let contadorDark = 0;
+            function ejecutarDarkTheme (){
+                document.getElementById("body").style.backgroundColor="black";
+                document.getElementById("body").style.color="white";
+                contadorDark ++;
+                document.getElementById("contadorDark").innerHTML= contadorDark;
+                sumarTotalCambios ();
+                
+            }
+            function sumarTotalCambios () {
+                contadorTotal ++;
+                document.getElementById("totalCambiosTema").innerHTML= contadorTotal;
+            }
+            let contadorWhite = 0;
+            function ejecutarWhiteTheme (){
+                document.getElementById("body").style.backgroundColor="white";
+                document.getElementById("body").style.color="black";
+                contadorWhite ++;
+                document.getElementById("contadorWhite").innerHTML= contadorWhite;
+                sumarTotalCambios ();
+
+            }
+            let contadorLima = 0;
+            function ejecutarLimaTheme (){
+                document.getElementById("body").style.backgroundColor="limegreen";
+                document.getElementById("body").style.color="lime";
+                contadorLima ++;
+                document.getElementById("contadorLima").innerHTML= contadorLima;
+                sumarTotalCambios ();
+            }
+
+        </script>
+    </body>
+    </html>

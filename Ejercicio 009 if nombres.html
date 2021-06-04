@@ -1,0 +1,32 @@
+ <!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <style>
+        .verde {
+            color:green;
+        }
+        .rojo {
+            color: red;
+        }
+        </style>
+
+        <script>
+            function decirNombre(){
+                let nombre=prompt("Dime tu nombre");
+                if (nombre=="Felipe"){
+                document.getElementById("parrafoNombres").innerHTML+= "<br>" +'<span class="rojo">' + nombre + "</span>";
+                }
+                else {
+                document.getElementById("parrafoNombres").innerHTML+= "<br>" + nombre;
+                }
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <h3 id="parrafoNombres" class="verde"></h3>
+        <button type="button" onclick="decirNombre()">Dime tu nombre</button>
+    </body>
+</html>

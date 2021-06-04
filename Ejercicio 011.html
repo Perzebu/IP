@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        
+    </head>
+
+    <body>
+        <h1> Enfermedades de transmisión sexual</h1>
+        <p id="lista"> </p>
+        <hr>
+        <p id="listaCompra"></p>
+    </body>
+    <script>
+        let arrayETS = ["Clamidia", "Gonorrea", "Sífilis", "VIH", "Herpes", "Candidiasis"];
+        let numeroETS = arrayETS.length;
+        let arrayCompra = [];
+        let textETS = "<ul>";
+        for (i = 0; i < numeroETS; i++) {
+        textETS += "<li>" + arrayETS[i] + ' <button type="button" onclick="anyadirETS(' + i +')">AÑADIR</button>' + "</li>";
+        }
+        textETS += "</ul>";
+            document.getElementById("lista").innerHTML = textETS;
+        function anyadirETS(indiceETS){
+            arrayCompra.push(arrayETS[indiceETS]);
+            let numeroETSAñadida = arrayCompra.length;
+            let textCompra = "<ul>";
+            for (i = 0; i < numeroETSAñadida; i++) {
+        textCompra += "<li>" + arrayCompra[i]+ "</li>";
+        }
+        textCompra += "</ul>";
+            document.getElementById("listaCompra").innerHTML = textCompra;
+    
+        }
+    </script>
+</html>

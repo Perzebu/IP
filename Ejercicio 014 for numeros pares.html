@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        .rojo {
+            color: red; 
+        }
+    </style>
+</head>
+<body>
+    <p id=resultado></p>
+</body>
+<script>
+    let numeroMaximo = parseInt(prompt("Escoge número máximo"));
+    let multiplo = parseInt(prompt("Escoge el múltiplo"))
+    for (i=0; i<=numeroMaximo; i+=multiplo) {
+    if (i%2==0){
+        document.getElementById("resultado").innerHTML+= "<span class='rojo'>"+ i + "</span>" + "<br>";
+    }
+    else {
+        document.getElementById("resultado").innerHTML+= i + "<br>";
+        // Hay que poner un += para que no se borre cada bucle con el último.
+    }
+    }
+
+
+    </script>
+</html>
