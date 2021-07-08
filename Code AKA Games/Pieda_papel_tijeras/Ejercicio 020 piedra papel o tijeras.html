@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PIEDRA, PAPEL O TIJERAS</title>
+
+    <style>
+        .header {
+            background-color: rgb(49, 27, 133);
+            color:#06B8F6 ;
+            padding: 20px;
+            text-align: center;
+            margin: 0;
+            
+        }
+        body{
+            text-align: center;
+            font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+            font-size: 150%;
+            background-color: #06B8F6;
+            color: rgb(49, 27, 133);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+        .eleccionUsuario:hover{
+            opacity: 0.6;
+        }
+        table {
+            width: 100%;
+        }
+        td {
+            width: 33%;
+        }
+            
+            
+    </style>
+</head>
+<body>
+    <h1 class="header">¿PIEDRA, PAPEL O TIJERAS?</h1>
+    <TABLE FRAME="void">
+        <TR>
+            <TD>
+                <div><img onclick="iniciarJuego(0)" class="eleccionUsuario" id="piedra" src="imagenes/Piedra Papel Tijeras/0.png" ></div> <br>
+                <div><img  onclick="iniciarJuego(1)" class="eleccionUsuario" id="papel" src="imagenes/Piedra Papel Tijeras/1.png" ></div> <br>
+                <div><img onclick="iniciarJuego(2)" class="eleccionUsuario" id="tijeras" src="imagenes/Piedra Papel Tijeras/2.png" ></div>
+
+            </TD> 
+            <TD>
+                <h2 id="versus"></h2>
+                <div id="resultados"></div>
+                <div id="contadorUsuario"></div>
+                <div id="contadorPC"></div>
+                
+            </TD> 
+            <TD><div><img id="resultadoPC" src="imagenes/Piedra Papel Tijeras/interrogacion.png"></div>
+            </TD>
+        </TR>
+
+    </TABLE>
+    
+    <script>
+
+        let usuario= prompt("Nombre de usuario");
+        let contadorVidaUsuario=5;
+        let contadorVidaPC=5;
+        let jugadaPC;
+        let jugadaUsuario;
+        mostrarContador();
+
+        function iniciarJuego (valorImagen){
+            jugadaUsuario=valorImagen;
+            // no puedo poner la variable directamente en el parentesis porque no se recoge en el global, solo en esta funcion. Entonces creamos la variable global, que es igual a el valor de cada imagen para poder usarla en las demás funciones. 
+            
+            obtenerElementoAleatorio();
+            mostrarVersus();
+            compararJuego();
+            mostrarContador();
+            
+            
+
+        }
+
+        function mostrarContador (){
+            document.getElementById("contadorUsuario").innerHTML= usuario + " : " + '<span id="vidasUsuario"></span><br>';
+            document.getElementById("contadorPC").innerHTML= "PC : " + '<span id="vidasPC"></span>';
+
+            for (i=0; i<contadorVidaUsuario; i++){
+            document.getElementById("vidasUsuario").innerHTML+= "&#128151";
+            }
+            for (i=0; i<contadorVidaPC; i++){
+            document.getElementById("vidasPC").innerHTML+= "&#128151";
+            }
+        }
+
+        function obtenerElementoAleatorio (){
+            jugadaPC = Math.floor(Math.random() *3);
+            document.getElementById("resultadoPC").src='imagenes/Piedra Papel Tijeras/'+ jugadaPC + '.png';
+        }
+
+        function compararJuego (){
+            if (jugadaUsuario == 0){
+                if (jugadaPC== 0){
+                    document.getElementById("resultados").innerHTML='<h3>EMPATE</h3>';
+                }
+                if (jugadaPC== 1){
+                    document.getElementById("resultados").innerHTML='<h3 style="color:red">HAS PERDIDO</h3>';
+                    contadorVidaUsuario= contadorVidaUsuario - 1;
+                }
+                if (jugadaPC== 2){
+                    document.getElementById("resultados").innerHTML='<h3 style="color:green">HAS GANADO</h3>';
+                    contadorVidaPC= contadorVidaPC - 1;
+                }
+                
+
+            }
+
+            if (jugadaUsuario == 1){
+                if (jugadaPC== 1){
+                    document.getElementById("resultados").innerHTML='<h3>EMPATE</h3>';
+                }
+                if (jugadaPC== 2){
+                    document.getElementById("resultados").innerHTML='<h3 style="color:red">HAS PERDIDO</h3>';
+                    contadorVidaUsuario= contadorVidaUsuario - 1;
+                }
+                if (jugadaPC== 0){
+                    document.getElementById("resultados").innerHTML='<h3 style="color:green">HAS GANADO</h3>';
+                    contadorVidaPC= contadorVidaPC - 1;
+                }
+                
+                
+            }
+
+            if (jugadaUsuario == 2){
+                if (jugadaPC== 2){
+                    document.getElementById("resultados").innerHTML='<h3>EMPATE</h3>';
+                }
+                if (jugadaPC== 0){
+                    document.getElementById("resultados").innerHTML='<h3 style="color:red">HAS PERDIDO</h3>';
+                    contadorVidaUsuario= contadorVidaUsuario - 1;
+                }
+                if (jugadaPC== 1){
+                    document.getElementById("resultados").innerHTML='<h3 style="color:green">HAS GANADO</h3>';
+                    contadorVidaPC= contadorVidaPC - 1;
+                }
+                
+
+            }
+
+            if (contadorVidaPC == 0){
+                document.getElementById("resultados").innerHTML='<h3 style="color:green">¡HA GANADO '+usuario+'!</h3><br><h3>¿Juegas de nuevo?</h3>';
+                reiniciarJuego();
+            }
+            if (contadorVidaUsuario == 0){
+                document.getElementById("resultados").innerHTML='<h3 style="color:red">HA GANADO LA MÁQUINA</h3><br><h3>¿Juegas de nuevo?</h3>';
+                reiniciarJuego();
+
+            }
+        }
+
+        function mostrarVersus (){
+          
+            document.getElementById("versus").innerHTML='<img src="imagenes/Piedra Papel Tijeras/'+jugadaUsuario+'.png">' + "VS." + '<img src="imagenes/Piedra Papel Tijeras/'+jugadaPC+'.png">';
+        }
+      
+        function  reiniciarJuego (){
+    
+            document.getElementById("versus").innerHTML="";
+            document.getElementById("contadorUsuario").innerHTML="";
+            document.getElementById("contadorPC").innerHTML="";
+            document.getElementById("resultadoPC").src="imagenes/Piedra Papel Tijeras/interrogacion.png";
+            contadorVidaPC=5;
+            contadorVidaUsuario=5;
+
+        }
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Abel&display=swap" rel="stylesheet">
+    <title>Juego del ahorcado</title>
+</head>
+
+<style>
+
+    #letras {
+        font-size: 40px;
+    }
+
+    body {
+        font-family: 'Abel', sans-serif;
+        background: url("img/imgfondo.jpg") no-repeat;
+        background-size: cover;
+        display: grid;
+        place-items: center;
+    }
+
+    .tituloPrincipal {
+        font-size: 40px;
+        color: white;
+    }
+
+    button {
+        height: 28px;
+        width: 25px;
+        margin: 5px;
+        border-radius: 6px;
+        border-style: none;
+        cursor: pointer;
+        background-color: #fcba6f;
+    }
+
+    #btnEmpezarJuego {
+        height: 35px;
+        width: 80px;
+        border-radius: 8px;
+    }
+
+
+    p {
+        font-size: 30px;
+    }
+
+    #imgAhorcado {
+        height: 300px;
+        width: 260px;
+        border-style: solid;
+        border-color: beige;
+    }
+
+    img {
+        height: 300px;
+        width: 260px;
+    }
+</style>
+
+<body>
+
+    <h1 class="tituloPrincipal">ADIVINA LA PALABRA</h1>
+
+
+    <button id="btnEmpezarJuego" onclick="iniciarJuego()">PLAY</button>
+    <div id="letras"></div>
+    <p id="guionBajo"></p>
+    <div id="imgAhorcado"></div>
+    <h2 id="intentosRestantes" class="intentos"></h2>
+    <div id="abecedario"></div>
+
+    <script>
+
+        let palabraJuego;
+        let numLetras;
+        let numAlfabetos
+        let contadorFallos;
+        let contadorAciertos;
+        let numRestante;
+
+
+        let arrAlfabeto = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "ñ", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        let arrPalabras = ['imprimir', 'fotos', 'javascript', 'papel', 'retrato', 'jorobado', 'filmar', 'cocodrilo', 'estancia', 'sombrear', 'campanario', 'vampiro', 'zombie'];
+
+        function iniciarJuego() {
+            palabraJuego;
+            numLetras;
+            numAlfabetos
+            contadorFallos = 0;
+            contadorAciertos = 0;
+            numRestante = 7;
+            incrementoGanar = 0;
+
+            document.getElementById("btnEmpezarJuego").innerHTML = "PLAY";
+            document.getElementById("imgAhorcado").innerHTML = "";
+            document.getElementById("intentosRestantes").innerHTML = "";
+            document.getElementById("intentosRestantes").style.color = "black";
+            document.getElementById("guionBajo").style.color = "black";
+
+            obtenerPalabra();
+            ocultarPalabra();
+            crearBotones();
+        }
+
+        function obtenerPalabra() {
+            let numPalabra = arrPalabras.length;
+            let numAleatorio = Math.floor(Math.random() * numPalabra);
+            palabraJuego = arrPalabras[numAleatorio];
+
+        }
+
+        function ocultarPalabra() {
+            numLetras = palabraJuego.length;
+
+            document.getElementById("guionBajo").innerHTML = "";
+
+            for (i = 0; i < numLetras; i++) {
+                document.getElementById("guionBajo").innerHTML += "<span id='guion" + i + "'> _ </span>";
+
+            }
+        }
+
+        function crearBotones() {
+            numAlfabetos = arrAlfabeto.length;
+
+            document.getElementById("abecedario").innerHTML = "";
+
+
+            for (i = 0; i < numAlfabetos; i++) {
+
+                document.getElementById("abecedario").innerHTML += "<button id=" + arrAlfabeto[i] + " onclick=comparandoLetra('" + arrAlfabeto[i] + "')>" + arrAlfabeto[i] + "</button>";
+
+            }
+        }
+
+        function comparandoLetra(letraEscogida) {
+
+            let verdaderFalso = false;
+
+            document.getElementById(letraEscogida).disabled = true;
+            document.getElementById("btnEmpezarJuego").innerHTML = "Reiniciar partida";
+
+            for (i = 0; i < numLetras; i++) {
+
+                if (palabraJuego.charAt(i) == letraEscogida) {
+                    verdaderFalso = true;
+
+                    document.getElementById("guion" + i).innerHTML = letraEscogida;
+                    document.getElementById("guion" + i).style.color = "green";
+                    contadorAciertos += 1;
+                } else {
+                    contadorFallos + i;
+                }
+            }
+
+            if (verdaderFalso == false) {
+                console.log("aciertos: " + contadorAciertos);
+
+                contadorFallos += 1;
+                numRestante -= 1;
+
+                document.getElementById("imgAhorcado").innerHTML = "<img src='img/" + contadorFallos + ".gif'>";
+                document.getElementById("intentosRestantes").innerHTML = "Te quedan " + numRestante + " intentos.";
+                if (numRestante == 0) {
+                    console.log("Has muerto!")
+                    document.getElementById("guionBajo").innerHTML = palabraJuego;
+                    document.getElementById("guionBajo").style.color = "red";
+                    document.getElementById("intentosRestantes").innerHTML = "¡Has muerto!";
+                    document.getElementById("intentosRestantes").style.color = "red";
+
+                    for (i = 0; i < numAlfabetos; i++) {
+                        document.getElementById("" + arrAlfabeto[i] + "").disabled = true;
+                    }
+                }
+            }
+
+            if (contadorAciertos == numLetras) {
+
+                for (i = 0; i < numAlfabetos; i++) {
+                    document.getElementById("" + arrAlfabeto[i] + "").disabled = true;
+                }
+                console.log("Has ganado")
+                document.getElementById("imgAhorcado").innerHTML = "<img src='img/win.png'>";
+                document.getElementById("intentosRestantes").innerHTML = "¡HAS GANADO!";
+                document.getElementById("intentosRestantes").style.color = "green";
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
